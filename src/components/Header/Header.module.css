@@ -1,0 +1,31 @@
+.Header {
+  color: gray;
+}
+
+.Header nav {
+  display: inline-block;
+}
+
+.HeaderContainer {
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,.1);
+}
+
+.Navigation {
+  display: inline-block;
+  list-style: none;
+}
+
+.Navigation li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+@media (min-width: 600px) {
+  .HeaderContainer {
+    width: 70%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
