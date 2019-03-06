@@ -1,0 +1,14 @@
+.MainContainer {
+  background-color: white;
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,.1);
+  margin: 10px 0;
+  padding: 10px 20px;
+}
+
+@media (min-width: 600px) {
+  .MainContainer {
+    width: 70%;
+    max-width: 1000px;
+    margin: 10px auto;
+  }
+}
