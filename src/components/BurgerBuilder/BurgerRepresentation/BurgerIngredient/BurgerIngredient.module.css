@@ -1,0 +1,21 @@
+.BurgerIngredient {
+  width: 300px;
+}
+
+.BurgerIngredient--BreadTop {
+  height: 50px;
+  border-radius: 50px 50px 0 0;
+  background-color: #ffd4b4;
+}
+
+.BurgerIngredient--BreadBottom {
+  background-color: #ffd4b4;
+  border-radius: 0 0 20px 20px;
+  height: 35px;
+}
+
+.BurgerIngredient--Meat {
+  background-color: #453223;
+  border-radius: 5px;
+  height: 15px;
+}
