@@ -44,6 +44,7 @@ class BurgerBuilder extends React.Component {
           ingredients={this.state.ingredients}
           price={this.state.totalPrice}/>
         <BurgerEditor
+          ingredients={this.state.ingredients}
           addIngredient={this.addIngredient.bind(this)}
           removeIngredient={this.removeIngredient.bind(this)}/>
       </section>

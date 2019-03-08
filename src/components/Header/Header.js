@@ -4,7 +4,7 @@ import classes from './Header.module.css';
 const Header = (props) => {
   return (
     <header className={classes.Header}>
-      <div class={classes.HeaderContainer}>
+      <div className={classes.HeaderContainer}>
         <span className={classes.Logo}>Logo</span>
         <nav>
           <ul className={classes.Navigation}>
