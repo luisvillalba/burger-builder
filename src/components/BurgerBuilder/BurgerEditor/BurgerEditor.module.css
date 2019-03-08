@@ -1,0 +1,7 @@
+.BurgerEditor {
+  background-color: rgb(223, 223, 223);
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}

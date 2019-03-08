@@ -1,5 +1,6 @@
 .BurgerIngredient {
   width: 300px;
+  margin: 1px 0;
 }
 
 .BurgerIngredient--BreadTop {
@@ -18,4 +19,16 @@
   background-color: #453223;
   border-radius: 5px;
   height: 15px;
+}
+
+.BurgerIngredient--Cheese {
+  background-color: #ffdd6c;
+  border-radius: 2px;
+  height: 4px;
+}
+
+.BurgerIngredient--Letuce {
+  background-color: #1a9420;
+  border-radius: 2px;
+  height: 8px;
 }
