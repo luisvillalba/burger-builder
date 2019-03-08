@@ -2,4 +2,10 @@
   font-size: 10px;
   margin-top: 10px;
   color: #4a6976;
+  padding: 10px 0 0 0;
+}
+
+.BurgerInformation__heading {
+  margin: 0 0 0 2px;
+  font-size: 13px;
 }

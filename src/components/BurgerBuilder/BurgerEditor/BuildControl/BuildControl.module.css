@@ -1,0 +1,22 @@
+.BuildControl {
+  margin: 5px 0;
+  display: flex;
+  width: 100%;
+  flex-basis: 20%;
+}
+
+.BuildControl__label {
+  width: 20%;
+}
+
+.BuildControl__button {
+
+}
+
+.BuildControl__button--less {
+
+}
+
+.BuildControl__button--more {
+
+}
