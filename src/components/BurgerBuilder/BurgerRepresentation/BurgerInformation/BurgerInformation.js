@@ -9,12 +9,14 @@ const BurgerInformation = (props) => {
     <div className={css.BurgerInformation}>
       <strong className={css['BurgerInformation__heading']}>Information:</strong>
       <table>
-        <tr>
-          <td>Ingredients:</td><td>{ingredients.join(', ')}</td>
-        </tr>
-        <tr>
-          <td>Total Price:</td><td>${props.price}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Ingredients:</td><td>{ingredients.join(', ')}</td>
+          </tr>
+          <tr>
+            <td>Total Price:</td><td>${props.price}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
