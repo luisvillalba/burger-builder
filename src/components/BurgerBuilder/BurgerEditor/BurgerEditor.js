@@ -28,6 +28,7 @@ const BurgerEditor = (props) => {
       </div>
       <button
         className={css.OrderCta}
+        onClick={() => props.setBuying(true)}
         disabled={!validOrder}>
         Order
       </button>
