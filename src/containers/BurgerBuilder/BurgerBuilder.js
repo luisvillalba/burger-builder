@@ -16,7 +16,8 @@ class BurgerBuilder extends React.Component {
       Cheese: 0,
       Meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    isBuying: false
   };
 
   removeIngredient(type) {
@@ -37,6 +38,10 @@ class BurgerBuilder extends React.Component {
     this.setState({totalPrice: price, ingredients: ingredients});
   }
 
+  setBuying(isBuying) {
+    this.setState({isBuying: isBuying});
+  }
+
   render() {
     return (
       <section className={css.BurgerBuilder}>
@@ -45,6 +50,7 @@ class BurgerBuilder extends React.Component {
           price={this.state.totalPrice}/>
         <BurgerEditor
           ingredients={this.state.ingredients}
+          setBuying={this.setBuying.bind(this)}
           addIngredient={this.addIngredient.bind(this)}
           removeIngredient={this.removeIngredient.bind(this)}/>
       </section>
