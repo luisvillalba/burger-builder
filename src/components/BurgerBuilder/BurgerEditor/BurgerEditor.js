@@ -2,6 +2,7 @@ import React from 'react';
 import css from './BurgerEditor.module.css';
 import BuildControl from './BuildControl/BuildControl';
 import Aux from '../../../hoc/Aux/Aux';
+import OrderSummary from './OrderSummary/OrderSummary';
 
 const BUILD_CONTROLS = [
   {label: 'Letuce', value: 'Letuce'},
@@ -32,6 +33,13 @@ const BurgerEditor = (props) => {
         disabled={!validOrder}>
         Order
       </button>
+      {props.isBuying ?
+        <OrderSummary
+          totalPrice={props.totalPrice}
+          setBuying={props.setBuying}
+          cancelOrder={props.cancelOrder}
+          setCheckOut={props.setCheckOut}
+          ingredients={props.ingredients}/> : ''}
     </Aux>
   )
 }

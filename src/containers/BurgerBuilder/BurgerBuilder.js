@@ -17,7 +17,8 @@ class BurgerBuilder extends React.Component {
       Meat: 0
     },
     totalPrice: 4,
-    isBuying: false
+    isBuying: false,
+    isCheckingout: false
   };
 
   removeIngredient(type) {
@@ -42,6 +43,25 @@ class BurgerBuilder extends React.Component {
     this.setState({isBuying: isBuying});
   }
 
+  setCheckOut(isCheckingout) {
+    this.setState({isCheckingout: isCheckingout});
+  }
+
+  cancelOrder() {
+    const oldIngredients = {...this.state.ingredients};
+    const newIngredients = Object.keys(oldIngredients).reduce((ac, cur) => {
+      ac[cur] = 0;
+      return ac;
+    }, {})
+
+    this.setState({
+      ingredients: newIngredients,
+      isBuying: false,
+      isCheckingout: false,
+      totalPrice: 4
+    });
+  }
+
   render() {
     return (
       <section className={css.BurgerBuilder}>
@@ -51,6 +71,10 @@ class BurgerBuilder extends React.Component {
         <BurgerEditor
           ingredients={this.state.ingredients}
           setBuying={this.setBuying.bind(this)}
+          cancelOrder={this.cancelOrder.bind(this)}
+          setCheckOut={this.setCheckOut.bind(this)}
+          isBuying={this.state.isBuying}
+          totalPrice={this.state.totalPrice}
           addIngredient={this.addIngredient.bind(this)}
           removeIngredient={this.removeIngredient.bind(this)}/>
       </section>
