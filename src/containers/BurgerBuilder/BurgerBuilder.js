@@ -2,29 +2,41 @@ import React from 'react';
 import css from './BurgerBuilder.module.css';
 import BurgerRepresentation from '../../components/BurgerBuilder/BurgerRepresentation/BurgerRepresentation';
 import BurgerEditor from '../../components/BurgerBuilder/BurgerEditor/BurgerEditor';
+import axios from 'axios';
 
-const INGREDIENT_PRICES = {
-  Letuce: 0.3,
-  Cheese: 0.5,
-  Meat: 1,
-}
+const INGREDIENTS_URL = 'https://firestore.googleapis.com/v1beta1/projects/burger-builder-19b67/databases/(default)/documents/ingredients/';
 
 class BurgerBuilder extends React.Component {
   state = {
+    ingredientPrices: {
+    },
     ingredients: {
-      Letuce: 0,
-      Cheese: 0,
-      Meat: 0
     },
     totalPrice: 4,
     isBuying: false,
     isCheckingout: false
   };
 
+  componentDidMount() {
+    axios.get(INGREDIENTS_URL).then(response => {
+      const ingredientPrices = response.data.documents.reduce((ac, doc) => {
+        ac[doc.fields.name.stringValue] = doc.fields.price.doubleValue;
+        return ac;
+      }, {});
+      const ingredients = response.data.documents.reduce((ac, doc) => {
+        ac[doc.fields.name.stringValue] = 0;
+        return ac;
+      }, {});
+      console.log({ingredients: ingredients, ingredientPrices: ingredientPrices});
+
+      this.setState({ingredients: ingredients, ingredientPrices: ingredientPrices});
+    });
+  }
+
   removeIngredient(type) {
     if (this.state.ingredients[type] > 0) {
       let ingredients = {...this.state.ingredients};
-      let price = this.state.totalPrice - INGREDIENT_PRICES[type];
+      let price = this.state.totalPrice - this.state.ingredientPrices[type];
 
       ingredients[type] = ingredients[type] - 1;
       this.setState({totalPrice: price, ingredients: ingredients});
@@ -33,7 +45,7 @@ class BurgerBuilder extends React.Component {
 
   addIngredient(type) {
     let ingredients = {...this.state.ingredients};
-    let price = this.state.totalPrice + INGREDIENT_PRICES[type];
+    let price = this.state.totalPrice + this.state.ingredientPrices[type];
 
     ingredients[type] = ingredients[type] + 1;
     this.setState({totalPrice: price, ingredients: ingredients});
