@@ -14,7 +14,7 @@ const BurgerInformation = (props) => {
             <td>Ingredients:</td><td>{ingredients.join(', ')}</td>
           </tr>
           <tr>
-            <td>Total Price:</td><td>${props.price}</td>
+            <td>Total Price:</td><td>${props.price.toFixed(2)}</td>
           </tr>
         </tbody>
       </table>

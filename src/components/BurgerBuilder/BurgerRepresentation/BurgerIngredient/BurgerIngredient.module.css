@@ -27,6 +27,12 @@
   height: 4px;
 }
 
+.BurgerIngredient--Bacon {
+  background-color: #851a07;
+  border-radius: 2px;
+  height: 4px;
+}
+
 .BurgerIngredient--Letuce {
   background-color: #1a9420;
   border-radius: 2px;

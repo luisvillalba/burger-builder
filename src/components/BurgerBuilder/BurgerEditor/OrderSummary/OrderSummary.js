@@ -8,7 +8,7 @@ const OrderSummary = (props) => {
   return (
     <section className={css.OrderSummary}>
       <p>A burger that contains: {ingredients.join(', ')}</p>
-      <p>Total: {props.totalPrice}</p>
+      <p>Total: {props.totalPrice.toFixed(2)}</p>
       <div>
         <button onClick={() => props.setCheckOut(true)}>Continue</button>
         <button onClick={() => props.setBuying(false)}>Edit</button>

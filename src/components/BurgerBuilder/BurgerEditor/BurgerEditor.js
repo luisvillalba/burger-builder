@@ -3,28 +3,24 @@ import css from './BurgerEditor.module.css';
 import BuildControl from './BuildControl/BuildControl';
 import Aux from '../../../hoc/Aux/Aux';
 import OrderSummary from './OrderSummary/OrderSummary';
-
-const BUILD_CONTROLS = [
-  {label: 'Letuce', value: 'Letuce'},
-  {label: 'Cheese', value: 'Cheese'},
-  {label: 'Meat', value: 'Meat'},
-];
+import Checkout from './Checkout/Checkout';
 
 const BurgerEditor = (props) => {
   const validOrder = Object.keys(props.ingredients)
       .filter((key) => props.ingredients[key] > 0).length > 0;
+  const ingredients = Object.keys(props.ingredients);
 
   return (
     <Aux>
       <div className={css.BurgerEditor}>
-        { BUILD_CONTROLS.map((control, i) => (
+        { ingredients.map((control, i) => (
           <BuildControl
-            key={control.label + i}
-            label={control.label}
-            value={control.value}
-            addIngredient={() => props.addIngredient(control.value)}
-            removeIngredient={() => props.removeIngredient(control.value)}
-            quantity={props.ingredients[control.value]}/>
+            key={control + i}
+            label={control}
+            value={control}
+            addIngredient={() => props.addIngredient(control)}
+            removeIngredient={() => props.removeIngredient(control)}
+            quantity={props.ingredients[control]}/>
         )) }
       </div>
       <button
@@ -39,7 +35,10 @@ const BurgerEditor = (props) => {
           setBuying={props.setBuying}
           cancelOrder={props.cancelOrder}
           setCheckOut={props.setCheckOut}
-          ingredients={props.ingredients}/> : ''}
+          ingredients={props.ingredients}/> : null}
+      {props.isCheckingout ?
+        <Checkout
+          placeOrder={props.placeOrder}/> : null}
     </Aux>
   )
 }
