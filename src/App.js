@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import About from './components/About/About';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
   render() {
     return (
-      <Layout>
-        <h1>Burger builder</h1>
-        <BurgerBuilder />
-      </Layout>
+      <BrowserRouter>
+        <Layout>
+          <Route path='/' exact component={BurgerBuilder} />
+          <Route path='/about/' exact component={About} />
+          <Route path='/orders/' exact component={Orders} />
+        </Layout>
+      </BrowserRouter>
     );
   }
 }

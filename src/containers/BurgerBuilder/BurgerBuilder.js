@@ -3,8 +3,10 @@ import css from './BurgerBuilder.module.css';
 import BurgerRepresentation from '../../components/BurgerBuilder/BurgerRepresentation/BurgerRepresentation';
 import BurgerEditor from '../../components/BurgerBuilder/BurgerEditor/BurgerEditor';
 import axios from 'axios';
+import uniqid from 'uniqid';
 
-const INGREDIENTS_URL = 'https://firestore.googleapis.com/v1beta1/projects/burger-builder-19b67/databases/(default)/documents/ingredients/';
+const INGREDIENTS_ENDPOINT = 'https://burger-builder-19b67.firebaseio.com/ingredients.json';
+const ORDERS_ENDPOINT = 'https://burger-builder-19b67.firebaseio.com/orders'
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -18,16 +20,15 @@ class BurgerBuilder extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(INGREDIENTS_URL).then(response => {
-      const ingredientPrices = response.data.documents.reduce((ac, doc) => {
-        ac[doc.fields.name.stringValue] = doc.fields.price.doubleValue;
+    axios.get(INGREDIENTS_ENDPOINT).then(response => {
+      const ingredientPrices = Object.keys(response.data).reduce((ac, key) => {
+        ac[response.data[key].name] = response.data[key].price;
         return ac;
       }, {});
-      const ingredients = response.data.documents.reduce((ac, doc) => {
-        ac[doc.fields.name.stringValue] = 0;
+      const ingredients = Object.keys(response.data).reduce((ac, key) => {
+        ac[response.data[key].name] = 0;
         return ac;
       }, {});
-      console.log({ingredients: ingredients, ingredientPrices: ingredientPrices});
 
       this.setState({ingredients: ingredients, ingredientPrices: ingredientPrices});
     });
@@ -46,7 +47,6 @@ class BurgerBuilder extends React.Component {
   addIngredient(type) {
     let ingredients = {...this.state.ingredients};
     let price = this.state.totalPrice + this.state.ingredientPrices[type];
-
     ingredients[type] = ingredients[type] + 1;
     this.setState({totalPrice: price, ingredients: ingredients});
   }
@@ -59,7 +59,22 @@ class BurgerBuilder extends React.Component {
     this.setState({isCheckingout: isCheckingout});
   }
 
-  cancelOrder() {
+  placeOrder() {
+    const data = {
+      "orderId": uniqid(),
+      "userId": "luismvillalba@gmail.com",
+      "ingredients": this.state.ingredients,
+      "totalPrice": this.state.totalPrice,
+      "orderDate": new Date().toUTCString()
+    };
+
+    axios.put(ORDERS_ENDPOINT + '/' + data.orderId + '.json', data).then(response => {
+      alert('Order Placed');
+      this.resetOrder();
+    });
+  }
+
+  resetOrder() {
     const oldIngredients = {...this.state.ingredients};
     const newIngredients = Object.keys(oldIngredients).reduce((ac, cur) => {
       ac[cur] = 0;
@@ -83,10 +98,12 @@ class BurgerBuilder extends React.Component {
         <BurgerEditor
           ingredients={this.state.ingredients}
           setBuying={this.setBuying.bind(this)}
-          cancelOrder={this.cancelOrder.bind(this)}
+          cancelOrder={this.resetOrder.bind(this)}
           setCheckOut={this.setCheckOut.bind(this)}
           isBuying={this.state.isBuying}
+          isCheckingout={this.state.isCheckingout}
           totalPrice={this.state.totalPrice}
+          placeOrder={this.placeOrder.bind(this)}
           addIngredient={this.addIngredient.bind(this)}
           removeIngredient={this.removeIngredient.bind(this)}/>
       </section>

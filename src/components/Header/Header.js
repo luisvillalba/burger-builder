@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Header.module.css';
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
   return (
@@ -8,9 +9,9 @@ const Header = (props) => {
         <span className={classes.Logo}>Logo</span>
         <nav>
           <ul className={classes.Navigation}>
-            <li>Home</li>
-            <li>About</li>
-            <li>Orders</li>
+            <li><NavLink to='/'>Home</NavLink></li>
+            <li><NavLink to='/about/'>About</NavLink></li>
+            <li><NavLink to='/orders/'>Orders</NavLink></li>
           </ul>
         </nav>
       </div>
